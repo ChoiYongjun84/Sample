@@ -3337,7 +3337,7 @@
 
 "husky@^5.1.2":
   "integrity" "sha512-AM8T/auHXRBxlrfPVLKP6jt49GCM2Zz47m8G3FOMsLmTv8Dj/fKVWE0Rh2d4Qrvmy131xEsdQnb3OXRib67PGg=="
-  "resolved" "https://registry.yarnpkg.com/husky/-/husky-5.2.0.tgz"
+  "resolved" "https://registry.npmjs.org/husky/-/husky-5.2.0.tgz"
   "version" "5.2.0"
 
 "iconv-lite@^0.4.4", "iconv-lite@0.4.24":

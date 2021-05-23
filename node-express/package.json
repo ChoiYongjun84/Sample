@@ -1,13 +1,13 @@
 {
   "name": "create-nodejs-express-app",
-  "version": "1.7.0",
+  "version": "0.1.0",
   "description": "Create a Node.js app for building production-ready RESTful APIs using Express, by running one command",
   "bin": {
     "create-nodejs-express-app": "bin/createNodejsApp.js"
   },
   "main": "src/index.js",
-  "repository": "https://github.com/hagopj13/node-express-boilerplate.git",
-  "author": "Hagop Jamkojian <hagopj13@gmail.com>",
+  "repository": "https://github.com/ChoiYongjun84/Sample.git",
+  "author": "choi",
   "license": "MIT",
   "engines": {
     "node": ">=12.0.0"
