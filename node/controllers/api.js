@@ -3,9 +3,9 @@ const cheerio = require('cheerio');
 const { LastFmNode } = require('lastfm');
 const tumblr = require('tumblr.js');
 const { Octokit } = require('@octokit/rest');
-const Twitter = require('twitter-lite');
+// const Twitter = require('twitter-lite');
 const stripe = require('stripe')(process.env.STRIPE_SKEY);
-const twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
+// const twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 const paypal = require('paypal-rest-sdk');
 const crypto = require('crypto');
 const lob = require('lob')(process.env.LOB_KEY);
@@ -255,57 +255,57 @@ exports.getLastfm = async (req, res, next) => {
  * GET /api/twitter
  * Twitter API example.
  */
-exports.getTwitter = async (req, res, next) => {
-  const token = req.user.tokens.find((token) => token.kind === 'twitter');
-  const T = new Twitter({
-    consumer_key: process.env.TWITTER_KEY,
-    consumer_secret: process.env.TWITTER_SECRET,
-    access_token_key: token.accessToken,
-    access_token_secret: token.tokenSecret
-  });
-  try {
-    const { statuses: tweets } = await T.get('search/tweets', {
-      q: 'nodejs since:2013-01-01',
-      geocode: '40.71448,-74.00598,5mi',
-      count: 10
-    });
-    res.render('api/twitter', {
-      title: 'Twitter API',
-      tweets
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+// exports.getTwitter = async (req, res, next) => {
+//   const token = req.user.tokens.find((token) => token.kind === 'twitter');
+//   const T = new Twitter({
+//     consumer_key: process.env.TWITTER_KEY,
+//     consumer_secret: process.env.TWITTER_SECRET,
+//     access_token_key: token.accessToken,
+//     access_token_secret: token.tokenSecret
+//   });
+//   try {
+//     const { statuses: tweets } = await T.get('search/tweets', {
+//       q: 'nodejs since:2013-01-01',
+//       geocode: '40.71448,-74.00598,5mi',
+//       count: 10
+//     });
+//     res.render('api/twitter', {
+//       title: 'Twitter API',
+//       tweets
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
-/**
- * POST /api/twitter
- * Post a tweet.
- */
-exports.postTwitter = async (req, res, next) => {
-  const validationErrors = [];
-  if (validator.isEmpty(req.body.tweet)) validationErrors.push({ msg: 'Tweet cannot be empty' });
+// /**
+//  * POST /api/twitter
+//  * Post a tweet.
+//  */
+// exports.postTwitter = async (req, res, next) => {
+//   const validationErrors = [];
+//   if (validator.isEmpty(req.body.tweet)) validationErrors.push({ msg: 'Tweet cannot be empty' });
 
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('/api/twitter');
-  }
+//   if (validationErrors.length) {
+//     req.flash('errors', validationErrors);
+//     return res.redirect('/api/twitter');
+//   }
 
-  const token = req.user.tokens.find((token) => token.kind === 'twitter');
-  const T = new Twitter({
-    consumer_key: process.env.TWITTER_KEY,
-    consumer_secret: process.env.TWITTER_SECRET,
-    access_token_key: token.accessToken,
-    access_token_secret: token.tokenSecret
-  });
-  try {
-    await T.post('statuses/update', { status: req.body.tweet });
-    req.flash('success', { msg: 'Your tweet has been posted.' });
-    res.redirect('/api/twitter');
-  } catch (error) {
-    next(error);
-  }
-};
+//   const token = req.user.tokens.find((token) => token.kind === 'twitter');
+//   const T = new Twitter({
+//     consumer_key: process.env.TWITTER_KEY,
+//     consumer_secret: process.env.TWITTER_SECRET,
+//     access_token_key: token.accessToken,
+//     access_token_secret: token.tokenSecret
+//   });
+//   try {
+//     await T.post('statuses/update', { status: req.body.tweet });
+//     req.flash('success', { msg: 'Your tweet has been posted.' });
+//     res.redirect('/api/twitter');
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 /**
  * GET /api/steam
@@ -422,36 +422,36 @@ exports.postStripe = (req, res) => {
  * GET /api/twilio
  * Twilio API example.
  */
-exports.getTwilio = (req, res) => {
-  res.render('api/twilio', {
-    title: 'Twilio API'
-  });
-};
+// exports.getTwilio = (req, res) => {
+//   res.render('api/twilio', {
+//     title: 'Twilio API'
+//   });
+// };
 
-/**
- * POST /api/twilio
- * Send a text message using Twilio.
- */
-exports.postTwilio = (req, res, next) => {
-  const validationErrors = [];
-  if (validator.isEmpty(req.body.number)) validationErrors.push({ msg: 'Phone number is required.' });
-  if (validator.isEmpty(req.body.message)) validationErrors.push({ msg: 'Message cannot be blank.' });
+// /**
+//  * POST /api/twilio
+//  * Send a text message using Twilio.
+//  */
+// exports.postTwilio = (req, res, next) => {
+//   const validationErrors = [];
+//   if (validator.isEmpty(req.body.number)) validationErrors.push({ msg: 'Phone number is required.' });
+//   if (validator.isEmpty(req.body.message)) validationErrors.push({ msg: 'Message cannot be blank.' });
 
-  if (validationErrors.length) {
-    req.flash('errors', validationErrors);
-    return res.redirect('/api/twilio');
-  }
+//   if (validationErrors.length) {
+//     req.flash('errors', validationErrors);
+//     return res.redirect('/api/twilio');
+//   }
 
-  const message = {
-    to: req.body.number,
-    from: '+13472235148',
-    body: req.body.message
-  };
-  twilio.messages.create(message).then((sentMessage) => {
-    req.flash('success', { msg: `Text send to ${sentMessage.to}` });
-    res.redirect('/api/twilio');
-  }).catch(next);
-};
+//   const message = {
+//     to: req.body.number,
+//     from: '+13472235148',
+//     body: req.body.message
+//   };
+//   twilio.messages.create(message).then((sentMessage) => {
+//     req.flash('success', { msg: `Text send to ${sentMessage.to}` });
+//     res.redirect('/api/twilio');
+//   }).catch(next);
+// };
 
 /**
  * Get /api/twitch
