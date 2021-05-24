@@ -2,10 +2,6 @@
   "name": "node-express-mongoose",
   "description": "A boilerplate application for node, mongo",
   "version": "1.0.0",
-  "author": {
-    "name": "Madhusudhan Srinivasa",
-    "email": "me@madhums.me"
-  },
   "engines": {
     "node": ">=10.x"
   },
