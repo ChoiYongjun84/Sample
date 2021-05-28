@@ -9,7 +9,10 @@
     "start": "cross-env NODE_ENV=development nodemon server.js",
     "test": "cross-env NODE_ENV=test babel-tape-runner test/test-*.js",
     "pretest": "eslint .",
-    "prod": "pm2-runtime start ecosystem.config.js --env production"
+    "prod": "pm2-runtime start ecosystem.config.js --env production --name node",
+
+    "restart": "kill -9 $(ps aux | grep 'node' | awk '{print $2}') && npm start",
+    "prod-restart": "pm2 restart node"
   },
   "dependencies": {
     "body-parser": "~1.19.0",
